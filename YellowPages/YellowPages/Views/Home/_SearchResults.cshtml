@@ -1,0 +1,39 @@
+﻿@model YellowPages.Models.DisplaySearchResultModel
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Companies)
+    {
+        <tr>
+            <td>
+                @Ajax.ActionLink(item.Name, "CompanyDetails", new { id = item.Id },
+              new AjaxOptions { UpdateTargetId = "details" }, new { id = item.Id+"detailsLink" })
+
+
+                @*@Html.DisplayFor(modelItem => item.Name)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<div id="details">
+
+
+</div>
+
+

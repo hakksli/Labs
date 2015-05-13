@@ -1,0 +1,80 @@
+﻿@model YellowPages.Models.DisplaySearchResultModel
+@{
+    ViewBag.Title = "Home Page";
+    
+    var searchresults = @Model.Companies;
+}
+
+<div class="row">
+
+    <div class="large-3 columns">
+        <p></p>
+        </div>
+        <div class="large-6 columns">
+            <h1>SEARCH</h1>
+            <hr>
+            <div class="row">
+
+@using (Ajax.BeginForm("SearchRequest", "Home",
+    new AjaxOptions { UpdateTargetId = "searchResult", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" },
+    new { @class = "" }))
+{
+                <div>
+                    @Html.RadioButtonFor(model => model.Option, "company")<span>Companies</span> 
+                    @Html.RadioButtonFor(model => model.Option, "people")<span>People</span> 
+                    @Html.RadioButtonFor(model => model.Option, "product")<span>Products</span> 
+                    
+                    @*<input id="Radio1" type="radio" value="Company" /><label for="company">Companies</label>
+                    <input id="Radio2" type="radio" value="Product" /><label for="product">Products</label>
+                    <input id="Radio3" type="radio" value="Person" /><label for="person">Person</label>*@
+                </div>
+                <div class="small-6 columns">
+                    @Html.TextBoxFor(model => model.SearchString, "searchtext")    
+                    </div>
+                <div class="small-6 columns">
+                    <button class="button round  fa fa-search" id="Button1" type="submit"></button>
+                    
+                    </div>
+}
+                @*<div id="searchResult">
+                    </div>*@
+                    @if (searchresults != null)
+                    {
+                        <div id="searchResult">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model.Companies)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    }
+
+
+                </div>
+            
+            </div>
+            <div class="large-3 columns">
+                <p></p>
+                </div>
+   
+ </div>
